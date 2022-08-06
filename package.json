@@ -10,10 +10,22 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -b -w",
     "build": "tsc -b",
-    "ship": "npm run build && npm version patch && git push"
+    "ship": "npm run build && npm version patch && git push && npm publish"
   },
-  "author": "",
-  "license": "ISC",
+  "files": [
+    "/lib",
+    "/bin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dappql/formact.git"
+  },
+  "author": "Diogo Perillo",
+  "bugs": {
+    "url": "https://github.com/dappql/formact/issues"
+  },
+  "homepage": "https://github.com/dappql/formact#readme",
+  "license": "MIT",
   "peerDependencies": {
     "@usedapp/core": "^1.1.1",
     "ethers": "^5.6.9",
