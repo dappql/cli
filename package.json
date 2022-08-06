@@ -18,13 +18,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dappql/formact.git"
+    "url": "git+https://github.com/dappql/cli.git"
   },
   "author": "Diogo Perillo",
   "bugs": {
-    "url": "https://github.com/dappql/formact/issues"
+    "url": "https://github.com/dappql/cli/issues"
   },
-  "homepage": "https://github.com/dappql/formact#readme",
+  "homepage": "https://github.com/dappql/cli#readme",
   "license": "MIT",
   "peerDependencies": {
     "@usedapp/core": "^1.1.1",
