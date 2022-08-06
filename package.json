@@ -6,6 +6,17 @@
   "bin": {
     "dappql": "bin/dappql"
   },
+  "keywords": [
+    "useDapp",
+    "etherjs",
+    "typechain",
+    "blockchain",
+    "smart-contracts",
+    "dapp",
+    "hooks",
+    "react hooks",
+    "query"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -b -w",

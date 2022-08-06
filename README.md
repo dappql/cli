@@ -2,6 +2,8 @@
 
 ## Querying data from smart-contracts made easy.
 
+An extention of useDapp to help generate code for querying contract data with the power of typescript
+
 ## Installation
 
 In your terminal, run:
@@ -109,6 +111,17 @@ export default function Root() {
 ```
 
 All the return types should have typescript types and autocomplete based on the method calls.
+
+## Hooks
+
+Every contract in the configuration file will have it's own hook file with a `use{ContractName}Call` and `use{ContractName}Function` to execute the calls and transactions individually.
+
+```typescript
+import { useToDoCall, useToDoFunction } from '../../contracts/hooks/useToDo'
+
+const [value, error, loading] = useToDoCall('statusName', [1])
+const transaction = useToDoFunction('createTask')
+```
 
 ## Contributing
 
