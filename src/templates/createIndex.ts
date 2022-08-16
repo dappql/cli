@@ -71,7 +71,7 @@ export type QueryContainerProps<T extends Requests> = {
       }>
       children?: (data: {
         [K in keyof T]: NonNullable<T[K]['returnType']>
-      }) => Children
+      }) => ReactElement<any, any>
     }
   | {
       component?: ComponentType<{
@@ -81,7 +81,7 @@ export type QueryContainerProps<T extends Requests> = {
       }>
       children: (data: {
         [K in keyof T]: NonNullable<T[K]['returnType']>
-      }) => Children
+      }) => ReactElement<any, any>
     }
 )
 
