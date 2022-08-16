@@ -103,7 +103,7 @@ export function QueryContainer<T extends Requests>(
   return props.component ? (
     <props.component data={data} />
   ) : (
-    props.children?.(data)
+    props.children?.(data) || null
   )
 }
 `
