@@ -9,7 +9,7 @@ export function createIndex(contracts: string[], target: string) {
 /* tslint:disable */
 /* eslint-disable */
 
-import { ComponentType, useMemo } from 'react'
+import { ComponentType, ReactElement, useMemo } from 'react'
 
 import { useCalls, useEthers } from '@usedapp/core'
 
