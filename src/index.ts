@@ -19,7 +19,7 @@ async function main() {
 
   clean(config.targetPath)
 
-  const contracts = Object.keys(config.contracts)
+  const contracts = Object.keys(config.contracts).sort()
 
   logger(
     `Generating contract types for: ${contracts
