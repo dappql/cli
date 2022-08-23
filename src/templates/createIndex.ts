@@ -58,8 +58,7 @@ export default function useQuery<T extends Requests>(
 
 export type ErrorMessageProps = { message?: string }
 
-export type QueryContainerProps<T extends Requests> = {
-  query: T
+export type ComponentsProps<T extends Requests> = {
   errorComponent?: ComponentType<ErrorMessageProps>
   loadingComponent?: ComponentType<any>
 } & (
@@ -85,27 +84,43 @@ export type QueryContainerProps<T extends Requests> = {
     }
 )
 
-export function QueryContainer<T extends Requests>(
-  props: QueryContainerProps<T>,
-) {
+export type QueryContainerProps<T extends Requests> = {
+  query: T
+} & ComponentsProps<T>
+
+export function QueryContainer<T extends Requests>(props: QueryContainerProps<T>) {
   const { data, error, isLoading } = useQuery(props.query)
 
   if (error) {
-    return props.errorComponent ? (
-      <props.errorComponent message={error.message} />
-    ) : null
+    return props.errorComponent ? <props.errorComponent message={error.message} /> : null
   }
 
   if (isLoading) {
     return props.loadingComponent ? <props.loadingComponent /> : null
   }
 
-  return props.component ? (
-    <props.component data={data} />
-  ) : (
-    props.children?.(data) || null
-  )
+  return props.component ? <props.component data={data} /> : props.children?.(data) || null
 }
+
+export type AccountQueryContainerProps<T extends Requests> = {
+  query: (account: string) => T
+  noAccountComponent?: ComponentType<any>
+} & ComponentsProps<T>
+
+export function AccountQueryContainer<T extends Requests>(props: AccountQueryContainerProps<T>) {
+  const { account } = useEthers()
+
+  const { noAccountComponent: NoAccountComponent, query, ...other } = props
+
+  if (!account) {
+    return NoAccountComponent ? <NoAccountComponent /> : null
+  }
+
+  const queryWithAccount = query(account)
+  return <QueryContainer<T> {...other} query={queryWithAccount} />
+}
+
+
 `
   writeFileSync(path, template)
 }
