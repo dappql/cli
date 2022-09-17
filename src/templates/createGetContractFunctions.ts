@@ -30,7 +30,7 @@ ${keys.map((c) => ` ${c}: new utils.Interface(${c}__factory.abi),`).join('\n')}
 
 export const MANIFEST: {
   [K in keyof Contracts]: string | Record<number, string>
-} = {${keys.map((k) => `"${k}": "${contracts[k]}"`).join(',')}}
+} = {${keys.map((k) => `"${k}": ${JSON.stringify(contracts[k])}`).join(',')}}
 
 export function getAddress<C extends keyof Contracts>(
   contract: C,
