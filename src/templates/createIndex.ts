@@ -11,7 +11,7 @@ export function createIndex(contracts: string[], target: string) {
 
 import { ComponentType, ReactElement, useMemo } from 'react'
 
-import { useCalls, useEthers } from '@usedapp/core'
+import { QueryParams, useCalls, useEthers } from '@usedapp/core'
 
 import { Requests, ${contracts.join('Call, ')}Call } from './requests'
 
@@ -25,6 +25,7 @@ export type QueryData<T extends Requests> = {
 
 export default function useQuery<T extends Requests>(
   requests: T,
+  queryParams?: QueryParams,
 ): {
   data: { [K in keyof T]: NonNullable<T[K]['returnType']> }
   isLoading: boolean
@@ -37,7 +38,7 @@ export default function useQuery<T extends Requests>(
     method: requests[c].method,
     args: requests[c].args,
   }))
-  const result = useCalls(calls)
+  const result = useCalls(calls, queryParams)
 
   const error = result.find((r) => r?.error)?.error
   const loadedValues = result.filter((result) => result?.value)
@@ -86,10 +87,11 @@ export type ComponentsProps<T extends Requests> = {
 
 export type QueryContainerProps<T extends Requests> = {
   query: T
+  queryParams?: QueryParams
 } & ComponentsProps<T>
 
 export function QueryContainer<T extends Requests>(props: QueryContainerProps<T>) {
-  const { data, error, isLoading } = useQuery(props.query)
+  const { data, error, isLoading } = useQuery(props.query, props.queryParams)
 
   if (error) {
     return props.errorComponent ? <props.errorComponent message={error.message} /> : null
@@ -104,6 +106,7 @@ export function QueryContainer<T extends Requests>(props: QueryContainerProps<T>
 
 export type AccountQueryContainerProps<T extends Requests> = {
   query: (account: string) => T
+  queryParams?: QueryParams
   noAccountComponent?: ComponentType<any>
 } & ComponentsProps<T>
 

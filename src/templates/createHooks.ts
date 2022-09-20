@@ -21,6 +21,7 @@ import {
   useCall,
   useContractFunction,
   useEthers,
+  QueryParams,
 } from '@usedapp/core'
 import { ContractFunctionNames } from '@usedapp/core/dist/esm/src/model/types'
 
@@ -31,16 +32,20 @@ import { ${c} } from '../typechain'
 export function use${c}Call<M extends ${c}MethodNames>(
   method: M,
   args: Parameters<${c}['functions'][M]>,
+  queryParams?: QueryParams
 ) {
   const { chainId } = useEthers()
 
   const contract = useMemo(() => getContract('${c}', chainId), [chainId])
 
-  const { value, error } = (useCall({
-    contract,
-    method,
-    args,
-  }) as CallResult<${c}, M>) ?? {
+  const { value, error } = (useCall(
+    {
+      contract,
+      method,
+      args,
+    }, 
+    queryParams,
+  ) as CallResult<${c}, M>) ?? {
     value: undefined,
     error: undefined,
   }
