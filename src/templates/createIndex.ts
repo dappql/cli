@@ -90,7 +90,7 @@ export type QueryContainerProps<T extends Requests> = {
   queryParams?: QueryParams
 } & ComponentsProps<T>
 
-export function QueryContainer<T extends Requests>(props: QueryContainerProps<T>) {
+function SafeQueryContainer<T extends Requests>(props: QueryContainerProps<T>) {
   const { data, error, isLoading } = useQuery(props.query, props.queryParams)
 
   if (error) {
@@ -102,6 +102,15 @@ export function QueryContainer<T extends Requests>(props: QueryContainerProps<T>
   }
 
   return props.component ? <props.component data={data} /> : props.children?.(data) || null
+}
+
+export function QueryContainer<T extends Requests>(props: QueryContainerProps<T>) {
+  const { chainId } = useEthers()
+
+  if (!chainId) {
+    return props.errorComponent ? <props.errorComponent message="Invalid Network" /> : null
+  }
+  return <SafeQueryContainer<T> {...props} />
 }
 
 export type AccountQueryContainerProps<T extends Requests> = {
