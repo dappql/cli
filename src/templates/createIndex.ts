@@ -34,7 +34,7 @@ export default function useQuery<T extends Requests>(
   const { chainId } = useEthers()
   const callKeys = Object.keys(requests) as (keyof T)[]
   const calls = callKeys.map((c) => ({
-    contract: requests[c].contract(chainId),
+    contract: requests[c].contract(queryParams?.chainId || chainId),
     method: requests[c].method,
     args: requests[c].args,
   }))
