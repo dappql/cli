@@ -20,11 +20,13 @@ import {
  ${keys.join('__factory,\n ')}__factory
 } from './typechain'
 
-type Contracts = {
+export type Contracts = {
 ${keys.map((c) => ` ${c}: ${c}`).join('\n')}
 }
 
-const INTERFACES = {
+export type ContractNames = keyof Contracts
+
+export const INTERFACES = {
 ${keys.map((c) => ` ${c}: new utils.Interface(${c}__factory.abi),`).join('\n')}
 }
 
