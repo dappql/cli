@@ -14,6 +14,9 @@ import { ComponentType, ReactElement, useMemo } from 'react'
 import { QueryParams, useCalls, useEthers } from '@usedapp/core'
 
 import { Requests, ${contracts.join('Call, ')}Call } from './requests'
+import Provider, { useDappQL } from './DappQLProvider'
+
+export const DappQLProvider = Provider
 
 export const call = {
 ${contracts.map((c) => `  ${c}: ${c}Call`).join(',\n')},
@@ -31,14 +34,17 @@ export default function useQuery<T extends Requests>(
   isLoading: boolean
   error: Error | undefined
 } {
+  const context = useDappQL()
+  const _queryParams = { ...(context.queryParams || {}), ...(queryParams || {}) }
+
   const { chainId } = useEthers()
   const callKeys = Object.keys(requests) as (keyof T)[]
   const calls = callKeys.map((c) => ({
-    contract: requests[c].contract(queryParams?.chainId || chainId),
+    contract: requests[c].contract(_queryParams?.chainId || chainId),
     method: requests[c].method,
     args: requests[c].args,
   }))
-  const result = useCalls(calls, queryParams)
+  const result = useCalls(calls, _queryParams)
 
   const error = result.find((r) => r?.error)?.error
   const loadedValues = result.filter((result) => result?.value)

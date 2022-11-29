@@ -28,15 +28,19 @@ import { ContractFunctionNames } from '@usedapp/core/dist/esm/src/model/types'
 import getContract from '../getContract'
 import { ${c}MethodNames } from '../requests'
 import { ${c} } from '../typechain'
+import { useDappQL } from '../DappQLProvider'
 
 export function use${c}Call<M extends ${c}MethodNames>(
   method: M,
   args: Parameters<${c}['functions'][M]>,
   queryParams?: QueryParams
 ) {
+  const context = useDappQL()
   const { chainId } = useEthers()
+  const _queryParams = { ...(context.queryParams || {}), ...(queryParams || {}) }
+  const _chainId = _queryParams?.chainId || chainId
 
-  const contract = useMemo(() => getContract('${c}', chainId), [chainId])
+  const contract = useMemo(() => getContract('${c}', _chainId), [_chainId])
 
   const { value, error } = (useCall(
     {
@@ -44,7 +48,7 @@ export function use${c}Call<M extends ${c}MethodNames>(
       method,
       args,
     }, 
-    queryParams,
+    _queryParams,
   ) as CallResult<${c}, M>) ?? {
     value: undefined,
     error: undefined,
