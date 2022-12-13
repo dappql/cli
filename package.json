@@ -48,7 +48,7 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@dappql/core": "^0.0.3",
+    "@dappql/core": "^0.0.4",
     "@typechain/ethers-v5": "^10.1.0",
     "@usedapp/core": "^1.2.2",
     "ethers": "^5.7.2",
