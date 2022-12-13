@@ -9,7 +9,6 @@ import { createContractMethodsTypes } from './templates/createContractMethodsTyp
 import { createGetContractFunctions } from './templates/createGetContractFunctions'
 import { createIndex } from './templates/createIndex'
 import { createHooks } from './templates/createHooks'
-import { createProvider } from './templates/createProvider'
 
 async function main() {
   logger(figlet.textSync('DappQL', { horizontalLayout: 'full' }), Severity.info)
@@ -33,7 +32,6 @@ async function main() {
   createContractMethodsTypes(contracts, config.targetPath)
 
   logger('Generating DappQL code ...\n')
-  createProvider(config.targetPath)
   createIndex(contracts, config.targetPath)
   createHooks(contracts, config.targetPath)
 
