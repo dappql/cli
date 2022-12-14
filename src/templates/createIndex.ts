@@ -113,9 +113,9 @@ function SafeQueryContainer<T extends Requests>(props: QueryContainerProps<T>) {
 }
 
 export function QueryContainer<T extends Requests>(props: QueryContainerProps<T>) {
-  const { chainId } = useEthers()
+  const { queryParams } = useDappQL(props.queryParams)
 
-  if (!chainId && !props.queryParams?.chainId) {
+  if (!queryParams?.chainId) {
     return props.errorComponent ? <props.errorComponent message="Invalid Network" /> : null
   }
   return <SafeQueryContainer<T> {...props} />
