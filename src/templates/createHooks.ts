@@ -37,7 +37,7 @@ export function use${c}Call<M extends ${c}MethodNames>(
 ) {
   const { queryParams: finalQueryParams } = useDappQL(queryParams)
 
-  const contract = useMemo(() => getContract('Collections', finalQueryParams.chainId), [finalQueryParams.chainId])
+  const contract = useMemo(() => getContract('${c}', finalQueryParams.chainId), [finalQueryParams.chainId])
   // @ts-ignore - TODO: hooks will be removed
   const { value, error } = (useCall(
     {
