@@ -38,8 +38,8 @@
   "homepage": "https://github.com/dappql/cli#readme",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^18.0.0",
-    "@dappql/core": "^0.0.7"
+    "@dappql/core": "^0.0.7",
+    "react": "^18.0.0"
   },
   "devDependencies": {
     "@types/figlet": "^1.5.4",
