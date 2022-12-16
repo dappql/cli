@@ -1,6 +1,6 @@
 {
   "name": "dappql",
-  "version": "0.0.21",
+  "version": "1.0.0",
   "description": "useDapp extension to easily query smart-contracts",
   "main": "./lib/index.js",
   "bin": {
@@ -38,10 +38,10 @@
   "homepage": "https://github.com/dappql/cli#readme",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^18.0.0"
+    "react": "^18.0.0",
+    "@dappql/core": "^0.0.7"
   },
   "devDependencies": {
-    "@dappql/core": "^0.0.5",
     "@types/figlet": "^1.5.4",
     "@types/mkdirp": "^1.0.2",
     "@types/node": "^18.6.4",

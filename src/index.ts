@@ -8,7 +8,6 @@ import typechainIt from './utils/typechainIt'
 import { createContractMethodsTypes } from './templates/createContractMethodsTypes'
 import { createGetContractFunctions } from './templates/createGetContractFunctions'
 import { createIndex } from './templates/createIndex'
-import { createHooks } from './templates/createHooks'
 
 async function main() {
   logger(figlet.textSync('DappQL', { horizontalLayout: 'full' }), Severity.info)
@@ -33,7 +32,6 @@ async function main() {
 
   logger('Generating DappQL code ...\n')
   createIndex(contracts, config.targetPath)
-  createHooks(contracts, config.targetPath)
 
   logger('\n\nDone! 🎉\n\n', Severity.success)
 }
