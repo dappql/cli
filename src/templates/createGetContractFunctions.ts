@@ -45,14 +45,8 @@ export function getAddress<C extends keyof Contracts>(
   )
 }
 
-export default function getContract<C extends keyof Contracts>(
-  contract: C,
-  network?: number,
-) {
-  return new Contract(
-    getAddress(contract, network),
-    INTERFACES[contract],
-  ) as Contracts[C]
+export default function getContract<C extends keyof Contracts>(contract: C, network: number, address?: string) {
+  return new Contract(address || getAddress(contract, network), INTERFACES[contract]) as Contracts[C]
 }
 
 `
