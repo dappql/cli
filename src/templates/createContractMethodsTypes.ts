@@ -26,14 +26,6 @@ ${contracts
 export type ${c}MethodNames = ContractMethodNames<${c}>
 export type ${c}Params = Params<${c}, ${c}MethodNames>
 
-export type ${c}Request = {
-  contractName: '${c}'
-  contract: (network: number, address?: string) => ${c}
-  method: ${c}MethodNames
-  args: ${c}Params
-  returnType?: Awaited<ReturnType<${c}['functions'][${c}MethodNames]>>[0]
-}
-
 export function ${c}Call<M extends ${c}MethodNames>(
   method: M,
   args: Parameters<${c}['functions'][M]>,
@@ -44,11 +36,16 @@ export function ${c}Call<M extends ${c}MethodNames>(
     method,
     args,
     returnType: undefined as
-      | Awaited<ReturnType<${c}['functions'][M]>>[0]
-      | undefined,
+    | (Awaited<ReturnType<${c}['functions'][M]>> extends [any, any, ...any[]]
+        ? Awaited<ReturnType<${c}['functions'][M]>>
+        : Awaited<ReturnType<${c}['functions'][M]>>[0])
+    | undefined,
     contractName: '${c}' as const,
   }
 }
+
+export type ${c}Request = ReturnType<typeof ${c}Call>
+
 `,
   )
   .join('\n')}
