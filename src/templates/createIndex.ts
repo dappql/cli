@@ -47,9 +47,9 @@ export function AccountQueryContainer<T extends Requests>(props: AccountQueryCon
 export function useMutation<T extends ContractNames>(
   contractName: T,
   methodName: ContractFunctionNames<Contracts[T]>,
-  transactionName?: string,
+  transactionNameOrOptions?: string | {transactionName?: string, contractAddress?: string},
 ) {
-  return useMasterMutation(getContract, contractName, methodName, transactionName)
+  return useMasterMutation(getContract, contractName, methodName, transactionNameOrOptions)
 }
 export type Mutation = ReturnType<typeof useMutation>
 
