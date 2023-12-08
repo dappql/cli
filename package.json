@@ -1,6 +1,6 @@
 {
   "name": "dappql",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "useDapp extension to easily query smart-contracts",
   "main": "./lib/index.js",
   "bin": {
