@@ -20,6 +20,7 @@ import {
 import { CacheOptions } from '@dappql/cache'
 import { QueryParams } from '@usedapp/core'
 import { ContractFunctionNames } from '@usedapp/core/dist/esm/src/model'
+import { LogDescription } from 'ethers/lib/utils'
 
 import { Requests, ${contracts.join('Call, ')}Call } from './requests'
 import getContract, { ContractNames, Contracts } from './getContract'
@@ -47,7 +48,9 @@ export function AccountQueryContainer<T extends Requests>(props: AccountQueryCon
 export function useMutation<T extends ContractNames>(
   contractName: T,
   methodName: ContractFunctionNames<Contracts[T]>,
-  transactionNameOrOptions?: string | {transactionName?: string, contractAddress?: string},
+  transactionNameOrOptions?:
+    | string
+    | { transactionName?: string; contractAddress?: string; eventsListener?: (e: LogDescription[]) => any },
 ) {
   return useMasterMutation(getContract, contractName, methodName, transactionNameOrOptions)
 }
